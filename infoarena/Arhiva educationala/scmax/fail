@@ -1,0 +1,69 @@
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+//ifstream cin("scmax.in");
+//ofstream cout("scmax.out");
+const int Nmax=100005;
+int a[Nmax], res[Nmax], lst[Nmax], D[Nmax], AIB[Nmax], bst, up[Nmax];
+int n;
+
+int query(int x)
+{
+    int mx=0;
+    for(; x<=n; x-= x^(x-1) & x)
+        if(D[AIB[x]] > D[mx]) mx=AIB[x];
+
+    return mx;
+}
+
+void update (int x, int k)
+{
+    for(; x<=n; x+=x^(x-1) & x)
+    if(D[AIB[x]] < D[k])
+        AIB[x]=k;
+}
+
+int main()
+{
+    cin>>n;
+
+    for(int i=1; i<=n; ++i)
+        {
+            cin>>a[i];
+            res[i]=lst[i]=a[i];
+        }
+    int h=1;
+    sort(lst+1, lst+n+1);
+
+
+
+    for(int i=2; i<=n; ++i)
+        if(lst[i]!=lst[h])
+            lst[++h]=lst[i];
+
+    for(int i=1; i<=n; ++i)
+        a[i]=lower_bound(lst+1, lst+h+1,a[i])-lst;
+
+    for(int i=1; i<=n; ++i)
+        {
+            up[i]=query(a[i]-1);
+            D[i]=D[up[i]]+1;
+            update(a[i], i);
+        }
+
+    for(int i=1; i<=n; ++i)
+        if(D[bst] < D[i]) bst=i;
+
+    cout<<bst<<'\n';
+    int g;
+    for( h =0,  g=bst; g; g=up[g])
+        lst[++h]=res[g];
+
+    for(int i=h; i; --i)cout<<lst[i]<<' ';
+
+
+
+    return 0;
+}
+

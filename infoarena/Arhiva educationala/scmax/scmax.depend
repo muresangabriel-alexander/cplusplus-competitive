@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1456066293 source:/home/informatica/Downloads/Dev/infoarena/Arhiva educationala/scmax/main.cpp
+	<iostream>
+	<algorithm>
+

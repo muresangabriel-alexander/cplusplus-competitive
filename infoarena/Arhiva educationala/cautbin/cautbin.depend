@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1454622772 source:/home/informatica/Downloads/Dev/infoarena/Arhiva educationala/cautbin/main.cpp
+	<fstream>
+	<algorithm>
+
